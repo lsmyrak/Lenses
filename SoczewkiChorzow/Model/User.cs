@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using SoczewkiChorzow.Interfaces;
 namespace SoczewkiChorzow.Model
 {
     public class User
@@ -19,6 +19,11 @@ namespace SoczewkiChorzow.Model
         public bool Status { get; set; } = true;
         public string Rola { get; set; }
         public string Uprawnienia { get; set; }
+
+        public override string ToString()
+        {
+            return Name + " " + Surname;
+        }
     }
 
     public static class AccessDataUser
@@ -42,6 +47,37 @@ namespace SoczewkiChorzow.Model
             }
             return user;
         }
+
+        public static List<User> GetUsers()
+        {
+            List<User> users = null;
+            try
+            {
+                DateBaseContext db = new DateBaseContext();
+                users = db.User.ToList();
+            }
+            catch (Exception e)
+            {
+                ExceptionDispatchInfo.Capture(e).Throw();
+            }
+            return users;
+        }
+
+        public static List<User> GetUsers(string type)
+        {
+            List<User> users = null;
+            try
+            {
+                DateBaseContext db = new DateBaseContext();
+                users = db.User.Where(x => x.Rola.Equals(type) && x.Status == true).ToList();
+            }
+            catch (Exception e)
+            {
+                ExceptionDispatchInfo.Capture(e).Throw();
+            }
+            return users;
+        }
+
 
         public static void Save(User user)
         {
@@ -97,34 +133,76 @@ namespace SoczewkiChorzow.Model
             }
         }
 
-        public static List<User> GetUsers()
+        public static bool ValidUser(string login)
         {
-            List<User> users = null;
+            bool retVal = false;
+            User user = null;
             try
             {
                 DateBaseContext db = new DateBaseContext();
-                users = db.User.ToList();
+                user = db.User.FirstOrDefault(x => x.Login.Equals(login));
+                if (user == null)
+                {
+                    retVal = true;
+                }
+                else
+                {
+                    retVal = false;
+                }
             }
             catch (Exception e)
             {
                 ExceptionDispatchInfo.Capture(e).Throw();
             }
-            return users;
+            return retVal;
         }
 
-        public static List<User> GetUsers(string type)
+        public static int ValidUser(string login, string password)
         {
-            List<User> users = null;
+            int retVal = -1;
+            User user = null;            
             try
             {
                 DateBaseContext db = new DateBaseContext();
-                users = db.User.Where(x => x.Rola.Equals(type) && x.Status == true).ToList();
+                user = db.User.FirstOrDefault(x => x.Login.Equals(login) && x.Password.Equals(password) && x.Status==true);
+                if (user!=null)
+                {
+                    retVal = user.Id;
+                }
+                else
+                {
+                    retVal = -1;
+                }
             }
             catch (Exception e)
             {
                 ExceptionDispatchInfo.Capture(e).Throw();
             }
-            return users;
+            return retVal;
+        }
+
+        public static bool GetPermissions(int Id, string uprawninie)
+        {
+            bool retVal = false;
+            User user = null;
+            try
+            {
+                DateBaseContext db = new DateBaseContext();
+                user = db.User.FirstOrDefault(x => x.Id==Id && x.Uprawnienia.Equals(uprawninie) && x.Status == true);
+                if (user != null)
+                {
+                    retVal = true;
+                }
+                else
+                {
+                    retVal = false;
+                }
+            }
+            catch (Exception e)
+            {
+                ExceptionDispatchInfo.Capture(e).Throw();
+            }
+            return retVal;
         }
     }
 }

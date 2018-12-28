@@ -42,9 +42,9 @@
         <Label Content="Aktywny : " Grid.Column="0" Grid.Row="4"/>
         <CheckBox  Grid.Column="1" Grid.Row="4" IsChecked="{Binding Status}"/>
         <Label Content="Rola : " Grid.Column="0" Grid.Row="5"/>
-        <ComboBox  Grid.Column="1" Grid.Row="5" ItemsSource="{Binding RoleList}" SelectedItem="{Binding Rola}"/>
+        <ComboBox  Grid.Column="1" Grid.Row="5" ItemsSource="{Binding RoleList}" SelectedItem="{Binding Rola, Mode=TwoWay}"/>
         <Label Content="Uprawnienie : " Grid.Column="0" Grid.Row="6"/>
-        <ComboBox  Grid.Column="1" Grid.Row="6" ItemsSource="{Binding UprawnieniaList}" SelectedItem="{Binding Uprawnienia}"/>
+        <ComboBox  Grid.Column="1" Grid.Row="6" ItemsSource="{Binding UprawnieniaList}" SelectedItem="{Binding Uprawnienia, Mode=TwoWay}"/>
         <Label Content="Miasto : " Grid.Column="0" Grid.Row="7"/>
         <TextBox  Grid.Column="1" Grid.Row="7" Text="{Binding Miasto}"/>
         <Label Content="Ulica : " Grid.Column="0" Grid.Row="8"/>

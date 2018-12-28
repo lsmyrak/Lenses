@@ -7,7 +7,7 @@ using System.Windows.Input;
 using SoczewkiChorzow.Model;
 namespace SoczewkiChorzow.ModelView
 {
-    public class SoczewkiMV:ViewModelBase
+    public class SoczewkiMV : ViewModelBase
     {
         private ICommand cmdADM;
         private ICommand cmdAdd;
@@ -15,6 +15,7 @@ namespace SoczewkiChorzow.ModelView
         private ICommand cmdRemove;
         private ICommand cmdArchivum;
 
+        private bool canEnable;
         private List<Lens> lens = AccessDataLens.GetLenses();
 
         public List<Lens> Lens
@@ -36,16 +37,45 @@ namespace SoczewkiChorzow.ModelView
             {
                 if (cmdADM == null)
                 {
-                    cmdADM = new RelayCommand(x => OpenAdmin());                
+                    cmdADM = new RelayCommand(x => OpenAdmin());
                 }
                 return cmdADM;
             }
         }
 
+        public ICommand CmdAdd
+        {
+            get
+            {
+                if (cmdAdd == null)
+                {
+                    cmdAdd = new RelayCommand(x => OpenAdd());
+                }
+                return cmdAdd;
+            }
+        }
+
+        public bool CanEnable
+        {
+            get
+            {
+                return AccessDataUser.GetPermissions(SettingConfiguration.UserID, "Administrator"); 
+            }
+            set
+            {
+                canEnable = AccessDataUser.GetPermissions(SettingConfiguration.UserID,"Administrator");
+                OnPropertyChanged(nameof(CanEnable));
+            }
+        }
+
         private void OpenAdmin()
         {
-            // dopisac spr uprawnień
-            new View.Admins().ShowDialog(); ;
+            new View.Admins().ShowDialog();
+        }
+
+        private void OpenAdd()
+        {
+            new View.LenesDetalist().ShowDialog();
         }
     }
 }

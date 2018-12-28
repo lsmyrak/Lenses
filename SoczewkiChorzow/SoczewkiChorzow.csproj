@@ -62,11 +62,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\IAccessDataUser.cs" />
+    <Compile Include="ModelView\LensesDetalist.cs" />
+    <Compile Include="ModelView\LogowanieMV.cs" />
     <Compile Include="ModelView\UserDetalissMV.cs" />
     <Compile Include="ModelView\UsersMV.cs" />
     <Compile Include="Model\SettingConfiguration.cs" />
     <Compile Include="View\Admins.xaml.cs">
       <DependentUpon>Admins.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LenesDetalist.xaml.cs">
+      <DependentUpon>LenesDetalist.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Logowanie.xaml.cs">
+      <DependentUpon>Logowanie.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Userdetails.xaml.cs">
       <DependentUpon>Userdetails.xaml</DependentUpon>
@@ -84,6 +93,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Admins.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LenesDetalist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Logowanie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

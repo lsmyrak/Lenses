@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Dev\Project\NET\SoczewkiChorzow\SoczewkiChorzow\obj\Debug\
+D:\Dev\Project\NET\Lenses\SoczewkiChorzow\obj\Debug\
 SoczewkiChorzow
 none
 false
 DEBUG;TRACE
-D:\Dev\Project\NET\SoczewkiChorzow\SoczewkiChorzow\App.xaml
-3-1952113349
+D:\Dev\Project\NET\Lenses\SoczewkiChorzow\App.xaml
+5844109176
 
-22-524948210
-161957311425
-MainWindow.xaml;View\Admins.xaml;View\Userdetails.xaml;
+27-370039568
+16-682935944
+MainWindow.xaml;View\Admins.xaml;View\LenesDetalist.xaml;View\Logowanie.xaml;View\Userdetails.xaml;
 
-False
+True
 

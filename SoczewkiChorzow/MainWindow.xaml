@@ -17,14 +17,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <ToolBar>
-            <Button Content="Wstaw"/>
-            <Button Content="Edytuj" Command="{Binding CmdEdit}"/>
+            <Button Content="Wstaw" Command="{Binding CmdAdd}"/>
+            <Button Content="Edytuj" Command="{Binding CmdEdit}" CommandParameter="{Binding ElementName=ListLenses}"/>
             <Button Content="Usuń"/>
             <Separator/>
             <Button Content="Archiwum zamówień"/>
             <Separator/>
-            <Button Content="Administracja" Background="Red" Foreground="White" Command="{Binding CmdADM}"/>
+            <Button Content="Administracja" Background="Red" Foreground="White" Command="{Binding CmdADM}" IsEnabled="{Binding CanEnable}"/>
         </ToolBar>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding }" MinHeight="400"/>
+        <DataGrid Name="ListLenses" Grid.Row="1" ItemsSource="{Binding }" MinHeight="400"/>
     </Grid>
 </Window>

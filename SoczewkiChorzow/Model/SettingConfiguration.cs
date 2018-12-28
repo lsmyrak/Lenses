@@ -10,6 +10,7 @@ namespace SoczewkiChorzow.Model
     {
         public static int UserID = -1;
         public static int UserSelected = -1;
+        public static int LenesSelected = -1;
 
     }
 }

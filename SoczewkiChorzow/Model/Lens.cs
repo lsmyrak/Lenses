@@ -19,9 +19,9 @@ namespace SoczewkiChorzow.Model
         public decimal Cena { get; set; }
         public string Uwagi { get; set; }
         public DateTime DataBadania { get; set; }
-        public string LekarzProwadzacy { get; set; }
+        public virtual User LekarzProwadzacy { get; set; } // <-
         public DateTime DataZabiegu { get; set; }
-        public string Operator { get; set; }
+        public virtual User Operator { get; set; } //<-
         public bool KartotekaZaniesiona { get; set; }
 
         public DateTime DataZamoieniaE { get; set; }
@@ -67,11 +67,35 @@ namespace SoczewkiChorzow.Model
             return listLens;
         }
 
-        public static void Save(Lens lens)
+        public static void Save(Lens l)
         {
+            
             try
             {
                 DateBaseContext db = new DateBaseContext();
+                var operator_ = db.User.FirstOrDefault(x => x.Id == l.Operator.Id);
+                var lekarzPr = db.User.FirstOrDefault(x => x.Id == l.LekarzProwadzacy.Id);
+                var user = db.User.FirstOrDefault(x => x.Id == l.User.Id);
+                Lens lens = new Lens
+                {
+                    DataBadania = l.DataBadania,
+                    DataDostawyE = l.DataDostawyE,
+                    DataZabiegu = l.DataZabiegu,
+                    Cena = l.Cena,
+                    DataZamoieniaE = l.DataZamoieniaE,
+                    KartotekaZaniesiona = l.KartotekaZaniesiona,
+                    LekarzProwadzacy = lekarzPr,
+                    NazwaMoceE = l.NazwaMoceE,
+                    NazwaZabiegu = l.NazwaZabiegu,
+                    Oko = l.Oko,
+                    Operator = operator_,
+                    PacjentName = l.PacjentName,
+                    Status = l.Status,
+                    Uwagi = l.Uwagi,
+                    UwagiE = l.UwagiE,
+                    User = user,
+                };
+                
                 db.Lens.Add(lens);
                 db.SaveChanges();
             }

@@ -30,7 +30,11 @@ namespace SoczewkiChorzow.ModelView
         private ICommand cmdSave;
         private List<string> roleList = new List<string>
         {
-            "Operator","Administrator","User"
+            "Administrator",
+            "Operator",
+            "Zamawiajacy",
+            "Lekarz",
+            "Lekarz Prowadzący"
         };
 
         public string Name
@@ -174,7 +178,11 @@ namespace SoczewkiChorzow.ModelView
             }
         }
 
-        public List<string> UprawnieniaList { get; } = new List<string>(){   "Administrator","Operator","Zamawiajacy"
+        public List<string> UprawnieniaList { get; } = new List<string>()
+        {
+            "Operator",
+            "Administrator",
+            "User"
         };
 
         public ICommand CmdCanncel
@@ -207,10 +215,16 @@ namespace SoczewkiChorzow.ModelView
             user.Address = address;
 
             if (SettingConfiguration.UserSelected == -1)
-                AccessDataUser.Save(user);
+            {
+                if (AccessDataUser.ValidUser(user.Login))
+                    AccessDataUser.Save(user);
+                else
+                    MessageBox.Show("Użytkownik istnieje w systemie ");
+            }
             else
+            {
                 AccessDataUser.Update(user);
-
+            }
             Name = string.Empty;
             Surname = string.Empty;
             Login = string.Empty;
@@ -225,11 +239,13 @@ namespace SoczewkiChorzow.ModelView
 
 
 
+
         private void Cancel(object o)
         {
             SettingConfiguration.UserSelected = -1;
             Window w = (Window)o as Window;
             w.Close();
         }
+
     }
 }
